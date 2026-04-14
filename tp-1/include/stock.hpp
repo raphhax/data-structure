@@ -2,12 +2,15 @@
 #define STOCK_HPP
 
 class Stock {
+
 private:
     int id;
     double* cotacao;
     int w;
     int quant_precos;
-
+    double getRetornoElementar(int i);
+    double getVolatilidade();
+    
 public:
     Stock(int id, int w);
     ~Stock();
