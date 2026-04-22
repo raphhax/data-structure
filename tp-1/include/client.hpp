@@ -13,7 +13,7 @@ class Client{
 private:
     int id;
     noAcoes* carteira;
-
+    
 public:
     Client(int id);
     ~Client();

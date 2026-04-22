@@ -8,6 +8,7 @@ private:
     double* cotacao;
     int w;
     int quant_precos;
+    double fator_janela;
     double getRetornoElementar(int i);
     double getVolatilidade();
     
@@ -16,7 +17,6 @@ public:
     ~Stock();
 
     void addCotacao(double preco);
-
     int getId();
     double getRET();
     double getAVGRET();
