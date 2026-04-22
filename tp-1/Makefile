@@ -23,7 +23,7 @@ OBJ_FOLDER = ./obj/
 SRC_FOLDER = ./src/
 
 # target
-TARGET = run.out
+TARGET = tp1.out
 SRC = $(wildcard $(SRC_FOLDER)*.cpp)
 OBJ = $(patsubst $(SRC_FOLDER)%.cpp, $(OBJ_FOLDER)%.o, $(SRC))
 
