@@ -6,7 +6,7 @@ Stock::Stock(int id, int w){
     this->id = id;
     this->w = w;
     this->cotacao = new double[w];
-    double fator_janela = 1.0 / (w - 1.0);
+    this->fator_janela = 1.0 / (w - 1.0);
     this->quant_precos = 0;
 }
 
@@ -15,8 +15,16 @@ Stock::~Stock(){
 }
 
 
-void Stock::addCotacao(double preco){
-
+void Stock::addCotacao(double preco) {
+    if (quant_precos < w) {
+        cotacao[quant_precos] = preco;
+        quant_precos++;
+    } else {
+        for (int i = 0; i < (w - 1); i++) {
+            cotacao[i] = cotacao[i + 1];
+        }
+        cotacao[w - 1] = preco;
+    }
 }
 
 int Stock::getId(){
@@ -24,14 +32,20 @@ int Stock::getId(){
 }
 
 double Stock::getRetornoElementar(int i){
+    if (i <= 0){
+        return 0.0;
+    }
     return (cotacao[i]/cotacao[i-1]) - 1;
 }
 
 double Stock::getVolatilidade(){
-    sqrt(1.0/(w-1));
+    return sqrt(1.0/(w-1));
 }
 
 double Stock::getRET(){
+    if (quant_precos < w){
+        return 0.0;
+    }
     return (cotacao[w-1] / cotacao[0]) - 1;
 }
 
@@ -43,7 +57,7 @@ double Stock::getAVGRET(){
     for(int i = 1; i < w; i++){
         somatorio+=getRetornoElementar(i);
     }
-    return (1.0/w-1.0) * somatorio;
+    return somatorio / (w-1.0);
 }
 
 double Stock::getSTAB(){
@@ -68,5 +82,5 @@ double Stock::getCONS() {
     for (int i = 1; i < w; i++) {
         if (getRetornoElementar(i) > 0) positivos++;
     }
-    return (double)positivos / (w - 1.0);
+    return (double)positivos/(w - 1.0);
 }
